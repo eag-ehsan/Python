@@ -22,10 +22,12 @@ class esGame:
             'grass': esLoadAllImgs('tiles/grass'),
             'large_decor': esLoadAllImgs('tiles/large_decor'),
             'stone': esLoadAllImgs('tiles/stone'),
-            'player': esLoadimg('entities/player.png')
+            'player': esLoadimg('entities/player.png'),
+            'background': esLoadimg('background.png'),
+            'clouds': esLoadAllImgs('clouds'),
         }
 
-        print(self.assets)
+        #self.clouds = Clouds(self.assets['clouds'], count=16)
 
 
         self.movement = [0, 0]
@@ -36,7 +38,7 @@ class esGame:
 
     def run(self):
         while True:
-            self.display.fill((14, 219, 248))
+            self.display.blit(self.assets['background'], (0, 0))
             self.esCamera[0] += (self.m_player.rect().centerx - self.display.get_width() / 2 - self.esCamera[0]) / 30
             self.esCamera[1] += (self.m_player.rect().centery - self.display.get_height() / 2 - self.esCamera[1]) / 30
             esCamera_render = (int(self.esCamera[0]), int(self.esCamera[1]))
