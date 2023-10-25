@@ -11,7 +11,7 @@ from scripts.clouds import Clouds
 class esGame:
     def __init__(self):
         pygame.init()
-        pygame.display.set_caption('ninja game')
+        pygame.display.set_caption('Ehsan A.G. test game')
         self.screen = pygame.display.set_mode((640, 480))
         self.display = pygame.Surface((320, 240))
         self.clock = pygame.time.Clock()
@@ -39,6 +39,7 @@ class esGame:
         self.movement = [0, 0]
         self.m_player = Player(self, (50, 50), (8, 15))
         self.m_tilemap = Tilemap(self, tile_size=16)
+        self.m_tilemap.load('map.json')
         self.esCamera = [0,0]
 
 

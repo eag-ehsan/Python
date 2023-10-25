@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from scripts.utils import load_images
+from scripts.utils import esLoadAllImgs
 from scripts.tilemap import Tilemap
 
 RENDER_SCALE = 2.0
@@ -18,10 +18,10 @@ class Editor:
         self.clock = pygame.time.Clock()
         
         self.assets = {
-            'decor': load_images('tiles/decor'),
-            'grass': load_images('tiles/grass'),
-            'large_decor': load_images('tiles/large_decor'),
-            'stone': load_images('tiles/stone'),
+            'decor': esLoadAllImgs('tiles/decor'),
+            'grass': esLoadAllImgs('tiles/grass'),
+            'large_decor': esLoadAllImgs('tiles/large_decor'),
+            'stone': esLoadAllImgs('tiles/stone'),
         }
         
         self.movement = [False, False, False, False]
