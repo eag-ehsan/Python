@@ -3,9 +3,10 @@ import sys
 import pygame
 
 
-from scripts.utils import esLoadimg, esLoadAllImgs
-from scripts.entities import PhysicsEntity
+from scripts.utils import esLoadimg, esLoadAllImgs, Animation
+from scripts.entities import PhysicsEntity, Player
 from scripts.tilemap import Tilemap
+from scripts.clouds import Clouds
 
 class esGame:
     def __init__(self):
@@ -25,13 +26,18 @@ class esGame:
             'player': esLoadimg('entities/player.png'),
             'background': esLoadimg('background.png'),
             'clouds': esLoadAllImgs('clouds'),
+            'player/idle': Animation(esLoadAllImgs('entities/player/idle'), img_dur=6),
+            'player/run': Animation(esLoadAllImgs('entities/player/run'), img_dur=4),
+            'player/jump': Animation(esLoadAllImgs('entities/player/jump')),
+            'player/slide': Animation(esLoadAllImgs('entities/player/slide')),
+            'player/wall_slide': Animation(esLoadAllImgs('entities/player/wall_slide')),
         }
 
-        #self.clouds = Clouds(self.assets['clouds'], count=16)
+        self.clouds = Clouds(self.assets['clouds'], count=16)
 
 
         self.movement = [0, 0]
-        self.m_player = PhysicsEntity(self, '', (50, 50), (8, 15))
+        self.m_player = Player(self, (50, 50), (8, 15))
         self.m_tilemap = Tilemap(self, tile_size=16)
         self.esCamera = [0,0]
 
@@ -42,6 +48,9 @@ class esGame:
             self.esCamera[0] += (self.m_player.rect().centerx - self.display.get_width() / 2 - self.esCamera[0]) / 30
             self.esCamera[1] += (self.m_player.rect().centery - self.display.get_height() / 2 - self.esCamera[1]) / 30
             esCamera_render = (int(self.esCamera[0]), int(self.esCamera[1]))
+
+            self.clouds.update()
+            self.clouds.render(self.display, offset=esCamera_render)
 
             self.m_tilemap.render(self.display, offset=esCamera_render)
             self.m_player.update(self.m_tilemap, (self.movement[1] - self.movement[0],0))
