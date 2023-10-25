@@ -31,13 +31,19 @@ class esGame:
         self.movement = [0, 0]
         self.m_player = PhysicsEntity(self, '', (50, 50), (8, 15))
         self.m_tilemap = Tilemap(self, tile_size=16)
-        
+        self.esCamera = [0,0]
+
+
     def run(self):
         while True:
             self.display.fill((14, 219, 248))
-            self.m_tilemap.render(self.display)
+            self.esCamera[0] += (self.m_player.rect().centerx - self.display.get_width() / 2 - self.esCamera[0]) / 30
+            self.esCamera[1] += (self.m_player.rect().centery - self.display.get_height() / 2 - self.esCamera[1]) / 30
+            esCamera_render = (int(self.esCamera[0]), int(self.esCamera[1]))
+
+            self.m_tilemap.render(self.display, offset=esCamera_render)
             self.m_player.update(self.m_tilemap, (self.movement[1] - self.movement[0],0))
-            self.m_player.render(self.display)
+            self.m_player.render(self.display, offset=esCamera_render)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
