@@ -26,7 +26,7 @@ class Game:
             'player': load_image('entities/player.png')
         }
         
-        self.player = PhysicsEntity(self, 'player', (50, 50), (8, 15))
+        self.m_player = PhysicsEntity(self, 'player', (50, 50), (8, 15))
         
         self.tilemap = Tilemap(self, tile_size=16)
         
@@ -36,8 +36,8 @@ class Game:
             
             self.tilemap.render(self.display)
             
-            self.player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
-            self.player.render(self.display)
+            self.m_player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
+            self.m_player.render(self.display)
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -56,6 +56,7 @@ class Game:
                     if event.key == pygame.K_RIGHT:
                         self.movement[1] = False
             
+            # self.screen.blit(self.display, (0, 0))
             self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
             pygame.display.update()
             self.clock.tick(60)
